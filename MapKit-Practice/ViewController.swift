@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
-
+    private let locationSession = LocationManagerSession()
+     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBlue
