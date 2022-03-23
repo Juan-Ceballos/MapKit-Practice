@@ -19,6 +19,18 @@ class LocationManagerSession: NSObject {
         locationSession.requestWhenInUseAuthorization()
         locationSession.startUpdatingLocation()
     }
+    
+    public func convertCoordToPM(coordinate: CLLocationCoordinate2D) {
+        let clLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        CLGeocoder().reverseGeocodeLocation(clLocation) { (placemarks, error) in
+            if let error = error {
+                print("reverseGeocodeLocation error: \(error)")
+            }
+            if let firstPlacemark = placemarks?.first {
+                print("placemark info: \(firstPlacemark)")
+            }
+        }
+    }
 }
 
 extension LocationManagerSession: CLLocationManagerDelegate {
