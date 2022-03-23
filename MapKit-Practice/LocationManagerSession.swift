@@ -31,6 +31,17 @@ class LocationManagerSession: NSObject {
             }
         }
     }
+    
+    public func convertPlaceNameToCoord(addressString: String) {
+        CLGeocoder().geocodeAddressString(addressString) { (placemarks, error) in
+            if let error = error {
+                print("geocodeAddressString error: \(error)")
+            }
+            if let firstPlacemark = placemarks?.first, let location = firstPlacemark.location {
+                print("place name coordinate is: \(location.coordinate)")
+            }
+        }
+    }
 }
 
 extension LocationManagerSession: CLLocationManagerDelegate {

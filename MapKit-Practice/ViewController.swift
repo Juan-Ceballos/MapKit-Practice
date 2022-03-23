@@ -14,9 +14,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBlue
-        locationSession.convertCoordToPM(coordinate: <#T##CLLocationCoordinate2D#>)
+        convertCoordinateToPlacemark()
+        convertPlacenameToCoordinate()
     }
 
-
+    public func convertCoordinateToPlacemark() {
+        if let location = Location.getLocations().first {
+            locationSession.convertCoordToPM(coordinate: location.coordinate)
+        }
+    }
+    
+    public func convertPlacenameToCoordinate() {
+        locationSession.convertPlaceNameToCoord(addressString: "miami")
+    }
 }
 
