@@ -17,7 +17,16 @@ class LocationManagerSession: NSObject {
         locationSession.delegate = self
         locationSession.requestAlwaysAuthorization()
         locationSession.requestWhenInUseAuthorization()
-        locationSession.startUpdatingLocation()
+        //locationSession.startUpdatingLocation()
+        startSignificantLocationChanges()
+    }
+    
+    private func startSignificantLocationChanges() {
+        if CLLocationManager.significantLocationChangeMonitoringAvailable() {
+            return
+        }
+        
+        locationSession.startMonitoringSignificantLocationChanges()
     }
     
     public func convertCoordToPM(coordinate: CLLocationCoordinate2D) {

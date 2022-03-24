@@ -10,12 +10,17 @@ import MapKit
 
 class ViewController: UIViewController {
     private let locationSession = LocationManagerSession()
+    let mainView = MainMapView()
+    
+    override func loadView() {
+        view = mainView
+    }
      
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBlue
         convertCoordinateToPlacemark()
         convertPlacenameToCoordinate()
+        mainView.mKMapView.showsUserLocation = true
     }
 
     public func convertCoordinateToPlacemark() {
