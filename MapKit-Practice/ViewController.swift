@@ -55,5 +55,28 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("did select annotations")
+    }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else {
+            return nil
+        }
+        let identfier = "locationAnnotation"
+        var annotationView: MKPinAnnotationView
+        
+        if let dequeueView = mapView.dequeueReusableAnnotationView(withIdentifier: identfier) as? MKPinAnnotationView {
+            annotationView = dequeueView
+        } else {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identfier)
+            annotationView.canShowCallout = true
+        }
+        
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+    }
 }
