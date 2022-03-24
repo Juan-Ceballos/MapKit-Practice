@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         //convertPlacenameToCoordinate()
         mainView.mKMapView.showsUserLocation = true
         loadMapView()
+        mainView.mKMapView.delegate = self
     }
     
     private func makeAnnotations() -> [MKPointAnnotation] {
@@ -39,6 +40,7 @@ class ViewController: UIViewController {
     private func loadMapView() {
         let annotations = makeAnnotations()
         mainView.mKMapView.addAnnotations(annotations)
+        mainView.mKMapView.showAnnotations(annotations, animated: true)
     }
 
     public func convertCoordinateToPlacemark() {
@@ -52,3 +54,6 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: MKMapViewDelegate {
+    
+}
