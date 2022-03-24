@@ -18,9 +18,27 @@ class ViewController: UIViewController {
      
     override func viewDidLoad() {
         super.viewDidLoad()
-        convertCoordinateToPlacemark()
-        convertPlacenameToCoordinate()
+        //convertCoordinateToPlacemark()
+        //convertPlacenameToCoordinate()
         mainView.mKMapView.showsUserLocation = true
+        loadMapView()
+    }
+    
+    private func makeAnnotations() -> [MKPointAnnotation] {
+        var annotations = [MKPointAnnotation]()
+        for location in Location.getLocations() {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location.coordinate
+            annotation.title = location.title
+            annotations.append(annotation)
+        }
+        
+        return annotations
+    }
+    
+    private func loadMapView() {
+        let annotations = makeAnnotations()
+        mainView.mKMapView.addAnnotations(annotations)
     }
 
     public func convertCoordinateToPlacemark() {

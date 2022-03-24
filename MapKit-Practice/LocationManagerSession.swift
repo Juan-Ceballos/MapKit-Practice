@@ -19,14 +19,26 @@ class LocationManagerSession: NSObject {
         locationSession.requestWhenInUseAuthorization()
         //locationSession.startUpdatingLocation()
         startSignificantLocationChanges()
+        startMonitoringRegion()
+        //40.759211
+        //-73.984638
     }
     
     private func startSignificantLocationChanges() {
-        if CLLocationManager.significantLocationChangeMonitoringAvailable() {
+        if !CLLocationManager.significantLocationChangeMonitoringAvailable() {
             return
         }
         
         locationSession.startMonitoringSignificantLocationChanges()
+    }
+    
+    private func startMonitoringRegion() {
+        let location = Location.getLocations()[1]
+        let identifier = "monitoring region"
+        let region = CLCircularRegion(center: location.coordinate, radius: 500, identifier: identifier)
+        region.notifyOnEntry = true
+        region.notifyOnExit = false
+        locationSession.startMonitoring(for: region)
     }
     
     public func convertCoordToPM(coordinate: CLLocationCoordinate2D) {
@@ -78,5 +90,13 @@ extension LocationManagerSession: CLLocationManagerDelegate {
         default:
             break
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("did enter region \(region)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print("did exit region \(region)")
     }
 }
