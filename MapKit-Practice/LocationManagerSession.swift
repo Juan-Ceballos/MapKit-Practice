@@ -19,7 +19,7 @@ class LocationManagerSession: NSObject {
         locationSession.requestWhenInUseAuthorization()
         //locationSession.startUpdatingLocation()
         startSignificantLocationChanges()
-        startMonitoringRegion()
+        //startMonitoringRegion()
         //40.759211
         //-73.984638
     }

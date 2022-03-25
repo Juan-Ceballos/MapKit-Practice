@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController {
+class MainMapViewController: UIViewController {
     private let locationSession = LocationManagerSession()
     let mainView = MainMapView()
     
@@ -21,8 +21,8 @@ class ViewController: UIViewController {
         //convertCoordinateToPlacemark()
         //convertPlacenameToCoordinate()
         mainView.mKMapView.showsUserLocation = true
-        loadMapView()
         mainView.mKMapView.delegate = self
+        loadMapView()
     }
     
     private func makeAnnotations() -> [MKPointAnnotation] {
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: MKMapViewDelegate {
+extension MainMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("did select annotations")
     }
@@ -77,6 +77,13 @@ extension ViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
+        // stuff here
+    }
+    
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        let userCoord = mapView.userLocation.coordinate
+        print("this is user loc: \(userCoord)")
+        let region = MKCoordinateRegion(center: userCoord, latitudinalMeters: 1600, longitudinalMeters: 1600)
+        mainView.mKMapView.setRegion(region, animated: true)
     }
 }

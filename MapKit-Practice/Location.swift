@@ -16,10 +16,9 @@ struct Location {
     
     static func getLocations() -> [Location] {
         return [
-            Location(title: "Me", body: "Your Locatin", coordinate: CLLocationCoordinate2D(latitude: 40.75921388, longitude: -73.98463683), imageName: "userProfile"),
-            Location(title: "Tiffany", body: "Location of Tiffany in your area", coordinate: CLLocationCoordinate2D(latitude: 40.7593, longitude: -73.9847), imageName: "tiffanyProfile"),
-            Location(title: "Tiffany2", body: "Location of Tiffany2 in your area", coordinate: CLLocationCoordinate2D(latitude: 40.7594, longitude: -73.9847), imageName: "tiffanyProfile2"),
-            Location(title: "Tiffany3", body: "Location of Tiffany3 in your area", coordinate: CLLocationCoordinate2D(latitude: 40.7595, longitude: -73.9847), imageName: "tiffanyProfile3")
+            Location(title: "Andrea", body: "Location of Tiffany in your area", coordinate: CLLocationCoordinate2D(latitude: 40.7593, longitude: -73.9847), imageName: "andrea"),
+            Location(title: "Nana", body: "Location of Tiffany2 in your area", coordinate: CLLocationCoordinate2D(latitude: 40.7594, longitude: -73.9847), imageName: "nana"),
+            Location(title: "Vlada", body: "Location of Tiffany3 in your area", coordinate: CLLocationCoordinate2D(latitude: 40.7595, longitude: -73.9847), imageName: "vlada")
         ]
     }
 }
