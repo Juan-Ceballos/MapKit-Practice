@@ -28,6 +28,8 @@ class MainMapViewController: UIViewController {
     private func makeAnnotations() -> [MKPointAnnotation] {
         var annotations = [MKPointAnnotation]()
         for location in Location.getLocations() {
+            // if location within region do this, maybe get the location of all users
+            // or research device tracks registered devices in area
             let annotation = MKPointAnnotation()
             annotation.coordinate = location.coordinate
             annotation.title = location.title
@@ -39,8 +41,10 @@ class MainMapViewController: UIViewController {
     
     private func loadMapView() {
         let annotations = makeAnnotations()
+        // since region is set will only see nearby annotations unless zoomout
         mainView.mKMapView.addAnnotations(annotations)
-        mainView.mKMapView.showAnnotations(annotations, animated: true)
+        //mainView.mKMapView.showAnnotations(annotations, animated: false)
+        //mainView.mKMapView.annotations(in: _)
     }
 
     public func convertCoordinateToPlacemark() {
@@ -83,7 +87,8 @@ extension MainMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         let userCoord = mapView.userLocation.coordinate
         print("this is user loc: \(userCoord)")
-        let region = MKCoordinateRegion(center: userCoord, latitudinalMeters: 1600, longitudinalMeters: 1600)
+        let region = MKCoordinateRegion(center: userCoord, latitudinalMeters: 400, longitudinalMeters: 400)
         mainView.mKMapView.setRegion(region, animated: true)
     }
+    
 }
