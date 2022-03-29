@@ -15,7 +15,11 @@ class MainMapViewController: UIViewController {
     override func loadView() {
         view = mainView
     }
-     
+    
+    // isShowingAnnotations
+    // annotations
+    private var currImgNames = [String: String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //convertCoordinateToPlacemark()
@@ -23,6 +27,7 @@ class MainMapViewController: UIViewController {
         mainView.mKMapView.showsUserLocation = true
         mainView.mKMapView.delegate = self
         //loadMapView()
+        //mainView.mKMapView.register(<#T##viewClass: AnyClass?##AnyClass?#>, forAnnotationViewWithReuseIdentifier: <#T##String#>)
     }
     
     private func makeAnnotations(userCoord: CLLocationCoordinate2D, id: String) -> [MKPointAnnotation] {
@@ -35,6 +40,9 @@ class MainMapViewController: UIViewController {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = location.coordinate
                 annotation.title = location.title
+                currImgNames[location.title] = location.imageName
+                print("image name:")
+                print(location.imageName)
                 annotations.append(annotation)
             }
         }
@@ -42,16 +50,16 @@ class MainMapViewController: UIViewController {
         return annotations
     }
     
-//    private func loadMapView() {
-//        let annotations = makeAnnotations()
-//        print("user coord from load map")
-//        print(mainView.mKMapView.userLocation.coordinate)
-//        // since region is set will only see nearby annotations unless zoomout
-//        mainView.mKMapView.addAnnotations(annotations)
-//        //mainView.mKMapView.showAnnotations(annotations, animated: false)
-//        //mainView.mKMapView.annotations(in: _)
-//    }
-
+    //    private func loadMapView() {
+    //        let annotations = makeAnnotations()
+    //        print("user coord from load map")
+    //        print(mainView.mKMapView.userLocation.coordinate)
+    //        // since region is set will only see nearby annotations unless zoomout
+    //        mainView.mKMapView.addAnnotations(annotations)
+    //        //mainView.mKMapView.showAnnotations(annotations, animated: false)
+    //        //mainView.mKMapView.annotations(in: _)
+    //    }
+    
     public func convertCoordinateToPlacemark() {
         if let location = Location.getLocations().first {
             locationSession.convertCoordToPM(coordinate: location.coordinate)
@@ -68,18 +76,56 @@ extension MainMapViewController: MKMapViewDelegate {
         print("did select annotations")
     }
     
+    //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    //        guard annotation is MKPointAnnotation else {
+    //            return nil
+    //        }
+    //
+    //        let identfier = "locationAnnotation"
+    //        var annotationView: MKPinAnnotationView
+    //
+    //        if let dequeueView = mapView.dequeueReusableAnnotationView(withIdentifier: identfier) as? MKPinAnnotationView {
+    //            annotationView = dequeueView
+    //        } else {
+    //            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identfier)
+    //            annotationView.canShowCallout = true
+    //            let currImage = currImgNames[(annotation.title ?? "none") ?? "none"] ?? "none"
+    //            if currImage == "none" {
+    //                annotationView.image = UIImage(systemName: "person")
+    //            } else {
+    //                annotationView.contentMode = .scaleAspectFit
+    //                let image = UIImage(named: currImage)
+    //                image
+    //                annotationView.image = image
+    //            }
+    //        }
+    //
+    //        return annotationView
+    //    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKPointAnnotation else {
             return nil
         }
-        let identfier = "locationAnnotation"
-        var annotationView: MKPinAnnotationView
         
-        if let dequeueView = mapView.dequeueReusableAnnotationView(withIdentifier: identfier) as? MKPinAnnotationView {
-            annotationView = dequeueView
+        let identfier = "locationAnnotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identfier) as? MKMarkerAnnotationView
+        
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identfier)
+            annotationView?.canShowCallout = true
+            
+            let currImage = currImgNames[(annotation.title ?? "none") ?? "none"] ?? "none"
+            print("currImage = \(currImage)")
+            if currImage == "none" {
+                annotationView?.glyphImage = UIImage(systemName: "person")
+            } else {
+                //let image = UIImage(named: currImage)
+                annotationView?.glyphImage = UIImage(systemName: "person")
+            }
+            
         } else {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identfier)
-            annotationView.canShowCallout = true
+            annotationView?.annotation = annotation
         }
         
         return annotationView
@@ -90,14 +136,21 @@ extension MainMapViewController: MKMapViewDelegate {
     }
     
     // set region for zoom in
+    
+    // user moving removing old annotations adding new ones? recalc annotations?
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         let userCoord = mapView.userLocation.coordinate
-        print("this is user loc: \(userCoord)")
-        let annotations = makeAnnotations(userCoord: userCoord, id: "idLoc")
-        mapView.addAnnotations(annotations)
+        
         //mapView.showAnnotations(annotations, animated: false)
         let region = MKCoordinateRegion(center: userCoord, latitudinalMeters: 400, longitudinalMeters: 400)
         mainView.mKMapView.setRegion(region, animated: true)
     }
     
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        // another way of adding annotations maybe
+        let userCoord = mapView.userLocation.coordinate
+        print("this is user loc: \(userCoord)")
+        let annotations = makeAnnotations(userCoord: userCoord, id: "idLoc")
+        mapView.addAnnotations(annotations)
+    }
 }
