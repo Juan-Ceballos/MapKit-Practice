@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DatailMapViewController: UIViewController {
+class DetailMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

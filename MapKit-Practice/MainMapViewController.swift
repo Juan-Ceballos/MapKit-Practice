@@ -72,8 +72,11 @@ class MainMapViewController: UIViewController {
 }
 
 extension MainMapViewController: MKMapViewDelegate {
+    // navigate pass to detail view controller
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("did select annotations")
+        let dv = DetailMapViewController()
+        present(dv, animated: false)
     }
     
     //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -138,6 +141,7 @@ extension MainMapViewController: MKMapViewDelegate {
     // set region for zoom in
     
     // user moving removing old annotations adding new ones? recalc annotations?
+    // bug annimating?
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         print("did update location")
         let userCoord = mapView.userLocation.coordinate
@@ -150,6 +154,7 @@ extension MainMapViewController: MKMapViewDelegate {
         mainView.mKMapView.setRegion(region, animated: true)
     }
     
+    // careful when annotations so doesnt keep zooming in might need bool var and public annotations
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         // another way of adding annotations maybe
         //let userCoord = mapView.userLocation.coordinate

@@ -15,7 +15,7 @@
 		3EE6F2EC27E56A32001B7250 /* LocationManagerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE6F2EB27E56A32001B7250 /* LocationManagerSession.swift */; };
 		3EF4E44627EBA05C00AA2026 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4E44527EBA05C00AA2026 /* Location.swift */; };
 		3EF4E44927EBCE9700AA2026 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4E44827EBCE9700AA2026 /* MainMapView.swift */; };
-		3EF4E44E27F3D26700AA2026 /* DatailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4E44D27F3D26700AA2026 /* DatailMapViewController.swift */; };
+		3EF4E44E27F3D26700AA2026 /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF4E44D27F3D26700AA2026 /* DetailMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +29,7 @@
 		3EE6F2EB27E56A32001B7250 /* LocationManagerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerSession.swift; sourceTree = "<group>"; };
 		3EF4E44527EBA05C00AA2026 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3EF4E44827EBCE9700AA2026 /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
-		3EF4E44D27F3D26700AA2026 /* DatailMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatailMapViewController.swift; sourceTree = "<group>"; };
+		3EF4E44D27F3D26700AA2026 /* DetailMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 				3EF4E44527EBA05C00AA2026 /* Location.swift */,
 				3EE6F2D727E56800001B7250 /* SceneDelegate.swift */,
 				3EE6F2D927E56800001B7250 /* MainMapViewController.swift */,
-				3EF4E44D27F3D26700AA2026 /* DatailMapViewController.swift */,
+				3EF4E44D27F3D26700AA2026 /* DetailMapViewController.swift */,
 				3EF4E44827EBCE9700AA2026 /* MainMapView.swift */,
 				3EE6F2DE27E56802001B7250 /* Assets.xcassets */,
 				3EE6F2E027E56802001B7250 /* LaunchScreen.storyboard */,
@@ -146,7 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EE6F2DA27E56800001B7250 /* MainMapViewController.swift in Sources */,
-				3EF4E44E27F3D26700AA2026 /* DatailMapViewController.swift in Sources */,
+				3EF4E44E27F3D26700AA2026 /* DetailMapViewController.swift in Sources */,
 				3EF4E44927EBCE9700AA2026 /* MainMapView.swift in Sources */,
 				3EE6F2D627E56800001B7250 /* AppDelegate.swift in Sources */,
 				3EF4E44627EBA05C00AA2026 /* Location.swift in Sources */,
