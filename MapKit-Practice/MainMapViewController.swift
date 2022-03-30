@@ -32,7 +32,7 @@ class MainMapViewController: UIViewController {
     
     private func makeAnnotations(userCoord: CLLocationCoordinate2D, id: String) -> [MKPointAnnotation] {
         var annotations = [MKPointAnnotation]()
-        let currentRegion = CLCircularRegion(center: userCoord, radius: 400, identifier: id)
+        let currentRegion = CLCircularRegion(center: userCoord, radius: 600, identifier: id)
         for location in Location.getLocations() {
             // if location within region do this, maybe get the location of all users
             // or research device tracks registered devices in area
@@ -139,18 +139,22 @@ extension MainMapViewController: MKMapViewDelegate {
     
     // user moving removing old annotations adding new ones? recalc annotations?
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        print("did update location")
         let userCoord = mapView.userLocation.coordinate
-        
+        let currAnnotations = mapView.annotations
+        mapView.removeAnnotations(currAnnotations)
+        let annotations = makeAnnotations(userCoord: userCoord, id: "idLoc")
+        mapView.addAnnotations(annotations)
         //mapView.showAnnotations(annotations, animated: false)
-        let region = MKCoordinateRegion(center: userCoord, latitudinalMeters: 400, longitudinalMeters: 400)
+        let region = MKCoordinateRegion(center: userCoord, latitudinalMeters: 50, longitudinalMeters: 50)
         mainView.mKMapView.setRegion(region, animated: true)
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         // another way of adding annotations maybe
-        let userCoord = mapView.userLocation.coordinate
-        print("this is user loc: \(userCoord)")
-        let annotations = makeAnnotations(userCoord: userCoord, id: "idLoc")
-        mapView.addAnnotations(annotations)
+        //let userCoord = mapView.userLocation.coordinate
+        //print("this is user loc: \(userCoord)")
+        //let annotations = makeAnnotations(userCoord: userCoord, id: "idLoc")
+        //mapView.addAnnotations(annotations)
     }
 }
